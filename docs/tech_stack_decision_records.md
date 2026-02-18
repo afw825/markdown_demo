@@ -7,7 +7,7 @@
 The project architecture is defined as a client-server, monolithic, single-database (simulated), synchronous, and layered system. The primary objective is to transform legacy Excel exports into a functional, clean dashboard for defect trend identification. Given that this is a data-heavy project involving "fuzzy" mapping and pattern recognition, the stack must excel at data manipulation and rapid deployment.
 
 **Decision:**
-We will use **Stack A: Python + Streamlit + SQLAlchemy + SQLite/Postgres**.
+We will use **Stack A: Python + Streamlit + SQLAlchemy + Postgres**, managed with **Poetry** for dependency management, virtual environment isolation, and reproducible lockfiles.
 
 ### Evaluation Dimensions:
 
@@ -16,6 +16,7 @@ We will use **Stack A: Python + Streamlit + SQLAlchemy + SQLite/Postgres**.
 3. **Ecosystem Maturity:** **Strong.** Python’s data ecosystem (specifically libraries like Pandas or Polars) is the most mature for the "relational mapping of disparate files" required by our project assumptions.
 4. **Deployment Simplicity:** **Superior.** Streamlit allows the UI and backend to exist in the same execution context, eliminating the need to manage separate frontend/backend deployments. This fits our requirement for a portable, functional tool.
 5. **Path to Next Architecture:** **Flexible.** While starting as a monolith, Python modules can be easily wrapped into FastAPI services or containerized if the project evolves toward a microservices or cloud-native architecture.
+6. **Build/Dependency Reliability:** **High with Poetry.** Poetry gives deterministic dependency resolution (`poetry.lock`), consistent virtual environments, and a single command surface for running app/tests/scripts.
 
 ---
 
@@ -32,8 +33,10 @@ We will use **Stack A: Python + Streamlit + SQLAlchemy + SQLite/Postgres**.
     * **Rapid Prototyping:** Streamlit turns data scripts into UI components in minutes, fitting the "clean but not pixel-perfect" requirement.
     * **Data-Centric:** Python’s handling of Excel inconsistencies and relational mapping is best-in-class.
     * **Simplified Maintenance:** The synchronous, layered approach is highly readable for teams with a data science or general engineering background.
+    * **Reproducible Environments:** Poetry standardizes setup across local machines and CI with lockfile-backed installs.
 * **Negative:**
     * **UI Constraints:** Streamlit's layout options are more rigid than custom HTML/CSS frameworks used in Stacks B or C.
     * **Resource Consumption:** Python can be more memory-intensive during batch processing of large Excel files compared to compiled alternatives.
+    * **Tooling Requirement:** Contributors must install Poetry before first run.
 
 ---
