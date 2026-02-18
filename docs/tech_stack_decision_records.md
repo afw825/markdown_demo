@@ -7,7 +7,7 @@
 The project architecture is defined as a client-server, monolithic, single-database (simulated), synchronous, and layered system. The primary objective is to transform legacy Excel exports into a functional, clean dashboard for defect trend identification. Given that this is a data-heavy project involving "fuzzy" mapping and pattern recognition, the stack must excel at data manipulation and rapid deployment.
 
 **Decision:**
-We will use **Stack A: Python + Streamlit + SQLAlchemy + SQLite/Postgres**.
+We will use **Stack A: Python + Poetry + Streamlit + SQLAlchemy + SQLite/Postgres**.
 
 ### Evaluation Dimensions:
 
