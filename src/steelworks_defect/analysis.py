@@ -4,13 +4,20 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from steelworks_defect.models import DefectDrillDown, DefectTrendSummary, InspectionEvent, TrendClassification
+from steelworks_defect.models import (
+    DefectDrillDown,
+    DefectTrendSummary,
+    InspectionEvent,
+    TrendClassification,
+)
 
 
 class RecurringDefectAnalyzer:
     """Encapsulates classification logic required by AC1-AC4 and AC9."""
 
-    def classify_defect_trends(self, events: list[InspectionEvent]) -> list[DefectTrendSummary]:
+    def classify_defect_trends(
+        self, events: list[InspectionEvent]
+    ) -> list[DefectTrendSummary]:
         """Build summary rows for the recurring defects list view (AC5)."""
         grouped_events: dict[tuple[str, str], list[InspectionEvent]] = defaultdict(list)
 
@@ -26,7 +33,9 @@ class RecurringDefectAnalyzer:
         for (defect_id, severity), defect_events in grouped_events.items():
             timestamps = [event.inspection_timestamp for event in defect_events]
             lots = {event.normalized_lot_id for event in defect_events}
-            weeks = {event.inspection_timestamp.isocalendar()[:2] for event in defect_events}
+            weeks = {
+                event.inspection_timestamp.isocalendar()[:2] for event in defect_events
+            }
 
             first_detected = min(timestamps)
             last_detected = max(timestamps)
@@ -60,14 +69,20 @@ class RecurringDefectAnalyzer:
 
         return summaries
 
-    def filter_recurring_defects(self, summaries: list[DefectTrendSummary]) -> list[DefectTrendSummary]:
+    def filter_recurring_defects(
+        self, summaries: list[DefectTrendSummary]
+    ) -> list[DefectTrendSummary]:
         """Return only recurring rows for recurring-only filter behavior (AC6)."""
         raise NotImplementedError
 
-    def prioritize_defect_trends(self, summaries: list[DefectTrendSummary]) -> list[DefectTrendSummary]:
+    def prioritize_defect_trends(
+        self, summaries: list[DefectTrendSummary]
+    ) -> list[DefectTrendSummary]:
         """Apply default sorting and prioritization required by AC9."""
         raise NotImplementedError
 
-    def build_defect_drilldown(self, defect_id: str, events: list[InspectionEvent]) -> DefectDrillDown:
+    def build_defect_drilldown(
+        self, defect_id: str, events: list[InspectionEvent]
+    ) -> DefectDrillDown:
         """Build defect-code detail payload and missing-period messaging (AC7, AC8)."""
         raise NotImplementedError

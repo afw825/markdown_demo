@@ -10,7 +10,9 @@ from steelworks_defect.models import DefectDrillDown, DefectTrendSummary
 class RecurringDefectAnalysisUseCase:
     """Orchestrates recurring defect list and drill-down flows for the user story."""
 
-    def __init__(self, gateway: InspectionEventGateway, analyzer: RecurringDefectAnalyzer) -> None:
+    def __init__(
+        self, gateway: InspectionEventGateway, analyzer: RecurringDefectAnalyzer
+    ) -> None:
         self._gateway = gateway
         self._analyzer = analyzer
 
